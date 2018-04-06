@@ -1,0 +1,11 @@
+clingo version 5.1.0
+Reading from e:/peng-asp-2017-03-30-stable/asp.lp
+Solving...
+Answer: 1
+-pred(john,shop_assistant,accommodate) const(john) const(shop_assistant)
+SATISFIABLE
+
+Models       : 1
+Calls        : 1
+Time         : 0.126s (Solving: 0.03s 1st Model: 0.00s Unsat: 0.03s)
+CPU Time     : 0.047s
