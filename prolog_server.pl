@@ -71,6 +71,11 @@ server(Port) :-
 
 :- http_handler('/css/bootstrap-switch.min.css', css_bootstrap_switch, []).
 
+:- http_handler('/css/quillcss.css', css_quillcss, []).
+
+
+
+
 %---------------------------------------------------------------
 % http_handler/3
 %
@@ -81,21 +86,24 @@ server(Port) :-
 
 :- http_handler('/superfish-master/dist/js/superfish.js', js_superfish, []).
 
-:- http_handler('/javascript/superfish_modules.js', js_superfish_mod, []).
+:- http_handler('/javascript/superfish_modules.js', js_superfish_mod,
+ []).
 
-:- http_handler('/javascript/LookaheadObject.js', js_lookahead, []).
+ :- http_handler('/javascript/LookaheadObject.js', js_lookahead, []).
 
-:- http_handler('/javascript/ViewModel.js', js_view_model, []).
+ :- http_handler('/javascript/ViewModel.js', js_view_model, []).
 
-:- http_handler('/javascript/TextArea.js', js_text_area, []).
+ :- http_handler('/javascript/TextArea.js', js_text_area, []).
 
-:- http_handler('/javascript/SuccessHelper.js', js_success_helper, []).
+ :- http_handler('/javascript/SuccessHelper.js', js_success_helper,
+ []).
 
 :- http_handler('/javascript/ClickHelper.js', js_click_helper, []).
 
-:- http_handler('/javascript/web_google_speech_mic.js', js_google_speech, []).
 
-:- http_handler('/javascript/FeatureStructure.js', js_feature_struct, []).
+
+ :- http_handler('/javascript/FeatureStructure.js', js_feature_struct,
+ []).
 
 :- http_handler('/js_library/knockout-min.js', js_knockout, []).
 
@@ -109,7 +117,12 @@ server(Port) :-
 
 :- http_handler('/javascript/KeyEventHelper.js', js_key_helper, []).
 
-:- http_handler('/js_library/bootstrap-switch.min.js', js_bootstrap_switch, []).
+ :- http_handler('/js_library/bootstrap-switch.min.js',
+ js_bootstrap_switch, []).
+
+:- http_handler('/javascript/quilljs.js', js_quilljs, []).
+
+
 
 %---------------------------------------------------------------
 % http_handler/3
@@ -120,9 +133,6 @@ server(Port) :-
 %----FOR IMAGES
 
 :- http_handler('/html/mic-animate.gif', mic_animate, []).
-
-:- http_handler('/html/mic-slash.gif', mic_slash, []).
-
 :- http_handler('/html/mic.gif', mic, []).
 
 
@@ -147,7 +157,7 @@ handle(Request) :-
                                 reasoner(Flag, []),
                                 reasonermode(RMode, [])
                                 ]),
-     %  write(user, 'Token: '), writeq(user, Token), nl(user), nl(user),
+       write(user, 'Request: '), writeq(user, Request), nl(user), nl(user),
       JSTN = json([id=Id,
 		   inputmode=InputMode,
                    editmode=Mode,
@@ -212,6 +222,9 @@ css_bootstrap(Request) :-
 css_bootstrap_switch(Request) :-
   http_reply_file('css/bootstrap-switch.min.css', [mime_type('text/css')], Request).
 
+css_quillcss(Request) :-
+  http_reply_file('css/quillcss.css', [mime_type('text/css')], Request).
+
 %---------------------------------------------------------------
 % JavaScript closure
 %---------------------------------------------------------------
@@ -223,49 +236,64 @@ js_superfish(Request) :-
   http_reply_file('superfish-master/dist/js/superfish.js', [mime_type('text/javascript')], Request).
 
 js_superfish_mod(Request) :-
-  http_reply_file('javascript/superfish_modules.js', [mime_type('text/javascript')], Request).
+http_reply_file('javascript/superfish_modules.js',
+[mime_type('text/javascript')], Request).
 
 js_lookahead(Request) :-
-  http_reply_file('javascript/LookaheadObject.js', [mime_type('text/javascript')], Request).
+  http_reply_file('javascript/LookaheadObject.js',
+  [mime_type('text/javascript')], Request).
 
-js_view_model(Request) :-
-  http_reply_file('javascript/ViewModel.js', [mime_type('text/javascript')], Request).
+ js_view_model(Request) :-
+ http_reply_file('javascript/ViewModel.js', [mime_type('text/javascript')], Request).
 
 js_text_area(Request) :-
-  http_reply_file('javascript/TextArea.js', [mime_type('text/javascript')], Request).
+ http_reply_file('javascript/TextArea.js', [mime_type('text/javascript')], Request).
 
 js_success_helper(Request) :-
-  http_reply_file('javascript/SuccessHelper.js', [mime_type('text/javascript')], Request).
+  http_reply_file('javascript/SuccessHelper.js',
+  [mime_type('text/javascript')], Request).
 
 js_click_helper(Request) :-
-  http_reply_file('javascript/ClickHelper.js', [mime_type('text/javascript')], Request).
+ http_reply_file('javascript/ClickHelper.js', [mime_type('text/javascript')], Request).
 
-js_google_speech(Request) :-
-  http_reply_file('javascript/web_google_speech_mic.js', [mime_type('text/javascript')], Request).
+%js_google_speech(Request) :-
+%  http_reply_file('javascript/web_google_speech_mic.js',
+%  [mime_type('text/javascript')], Request).
 
 js_feature_struct(Request) :-
-  http_reply_file('javascript/FeatureStructure.js', [mime_type('text/javascript')], Request).
+  http_reply_file('javascript/FeatureStructure.js',
+  [mime_type('text/javascript')], Request).
 
 js_knockout(Request) :-
-  http_reply_file('js_library/knockout-min.js', [mime_type('text/javascript')], Request).
+  http_reply_file('js_library/knockout-min.js',
+  [mime_type('text/javascript')], Request).
 
 js_jquery_ui(Request) :-
-  http_reply_file('js_library/jquery-ui.js', [mime_type('text/javascript')], Request).
+  http_reply_file('js_library/jquery-ui.js',
+  [mime_type('text/javascript')], Request).
 
 js_jquery(Request) :-
-  http_reply_file('js_library/jquery.min.js', [mime_type('text/javascript')], Request).
+  http_reply_file('js_library/jquery.min.js',
+  [mime_type('text/javascript')], Request).
 
 js_bootstrap(Request) :-
-  http_reply_file('js_library/bootstrap.min.js', [mime_type('text/javascript')], Request).
+  http_reply_file('js_library/bootstrap.min.js',
+  [mime_type('text/javascript')], Request).
 
 js_autocomplete(Request) :-
-  http_reply_file('javascript/Autocomplete.js', [mime_type('text/javascript')], Request).
+  http_reply_file('javascript/Autocomplete.js',
+  [mime_type('text/javascript')], Request).
 
 js_key_helper(Request) :-
-  http_reply_file('javascript/KeyEventHelper.js', [mime_type('text/javascript')], Request).
+  http_reply_file('javascript/KeyEventHelper.js',
+  [mime_type('text/javascript')], Request).
 
 js_bootstrap_switch(Request) :-
-  http_reply_file('js_library/bootstrap-switch.min.js', [mime_type('text/javascript')], Request).
+  http_reply_file('js_library/bootstrap-switch.min.js',
+  [mime_type('text/javascript')], Request).
+
+js_quilljs(Request) :-
+  http_reply_file('javascript/quilljs.js', [mime_type('text/javascript')], Request).
 
 % ---------------------------------------------------------------
 % Starts the server on port 8085
@@ -277,3 +305,59 @@ js_bootstrap_switch(Request) :-
    write('*** Prolog Server is listening on port: 8085  ***'), nl,
    write('*** Connect via: http://localhost:8085/peng/  ***'),
    nl, nl.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
