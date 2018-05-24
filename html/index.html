@@ -28,7 +28,31 @@
 
 
      <div id="editor"  data-bind="event: {click: init, keypress: keyHandler, keyup: backSpaceHandler }" data-bind="text:textAreaStr"></div>
-      <button id ="submit" onclick="logHtmlContent()"  data-bind="event: {click: submitButton}">Submit</button>
+      <div>
+        <button id ="submit" onclick="logHtmlContent()"  data-bind="event: {click: submitButton}">Submit</button>
+
+
+                                  <!-- Saving or loading FILE -->
+
+                                        <!-- SAVE SUBMENU -->
+                                        <button onclick="saveButton()">Save</button>
+
+                                        <!-- LOAD SUBMENU -->
+                                        <button  class="dropdown dropdown-submenu">
+                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" data-bind="event:{click: loadFileNames}" style=" padding-right:90px;" >Load</a>
+                                              <ul class="dropdown-menu" data-bind="foreach: fileNames">
+                                                    <li>
+                                                          <a href="javascript:void(0);" onclick="return false" data-bind="text:$data, click: $parent.loadFile"> </a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                              </ul>
+                                            </button>
+
+
+
+                          </div>
+                        </div>
+<div class="container" style="width:100%; padding:0;">
       <div class="lookahead-div">
                               <ul class="sf-menu" id="example" >
                                     <li class="loadlook-div" class="current">
@@ -59,7 +83,36 @@
 
                                   </ul>
                                     </div>
-                                    <div class="panel-group" id="accordion" >
+</div>
+
+                                    <div class="results-div">
+                    <div class="container" style="width:100%; padding:0;" >
+                          <div class="panel-group" id="accordion" >
+
+
+
+
+                                <div class="panel panel-default" style="padding:5px; border:none; border-radius: 0">
+                                      <div style="padding-left: 0;" class="panel-heading">
+                                            <h4 class="panel-title">
+                                                  <a href="javascript:void(0);"  class="accordion-toggle" data-toggle="collapse"  data-target="#collapseOne">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        Submitted Text
+                                                  </a>
+                                            </h4>
+                                      </div>
+                                      <div id="collapseOne" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                  <ol data-bind="foreach: textList">
+                                                        <li data-bind="text: $data"> </li>
+                                                  </ol>
+                                            </div>
+                                      </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
 
 
 
