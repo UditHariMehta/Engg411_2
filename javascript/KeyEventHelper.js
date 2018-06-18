@@ -1,3 +1,10 @@
+/**
+*   Author: Udit Hari Mehta, Macquarie University
+*   File Name: KeyEventHelper.js
+*   Modifications made to earlier implementations.
+*/
+
+
 
 var KeyHandler = {
       keyUpdate: function(d, e) {
@@ -9,6 +16,11 @@ var KeyHandler = {
 
             if(keyVal == " " && viewModel.textAreaStr().length == 0)
                   return false;
+        //if(keyVal == " " && viewModel.textAreaStr().charAt(viewModel.textAreaStr().length-2) == "." || viewModel.textAreaStr().charAt(viewModel.textAreaStr().length-2) == "?")
+
+            //    viewModel.init();
+            //    viewModel.allowInput;
+
             if(!charAllowed)
                   return false;
             if(viewModel.allowInput) {
@@ -26,28 +38,54 @@ var KeyHandler = {
             return true;
       },
 
-      enterKey: function() {
-        // changes made here
-          //  var i =0;
-            //var isEndOfSentence = viewModel.textAreaStr().charAt(viewModel.textAreaStr().length === " ");
-           var isEndOfSentence = viewModel.textAreaStr().charAt(viewModel.textAreaStr().length-1) == "." || viewModel.textAreaStr().charAt(viewModel.textAreaStr().length-1) == "?";
 
 
-            if(isEndOfSentence) {
-                  var submitStr = viewModel.textAreaStr();
-                  //.replace(" .", ".");
-                  //submitStr = submitStr.replace(" ?", "?");
-                  textLineData.addSentence(submitStr);
-                  viewModel.textList.push(submitStr);
-                  viewModel.textAreaStr('');
-                  viewModel.token('');
-                  viewModel.$text_field.val('');
-                  viewModel.init();
 
-          }
-      },
+        enterKey: function(){
 
-      punctuation: function(chr) { //str is what to update currentWord
+
+           var isEndOfSentence = viewModel.textAreaStr().charAt(viewModel.textAreaStr().length-1) == "." || viewModel.textAreaStr().charAt(viewModel.textAreaStr().length-1) == "?" ;
+           if(isEndOfSentence){
+             var submitStr = viewModel.textAreaStr();
+             //.replace(" .", ".");
+             //submitStr = submitStr.replace(" ?", "?");
+             textLineData.addSentence(submitStr);
+             viewModel.textList.push(submitStr);
+             viewModel.textAreaStr('');
+             viewModel.token('');
+             viewModel.$text_field.val('');
+             viewModel.init();
+             viewModel.allowInput;
+
+
+
+
+           }
+
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      punctuation: function(chr) {
             var sizeOfWord = viewModel.token().length;
             var prevWord = viewModel.token().slice(0, sizeOfWord);
             if(prevWord != "") {
@@ -57,12 +95,24 @@ var KeyHandler = {
             if (chr == '.' || chr == '?') {
                   if(  $.inArray(chr, viewModel.lookUpTable()) != -1)
                         viewModel.postToken(chr);
+
                   else {
                         textLineData.sposNum--;
-                        viewModel.allowInput = false;
+                        viewModel.allowInput = true;
                   }
             }
+
+
+
+
       },
+
+
+
+
+
+
+
 
 /**
       backspace: function(d, e) {
@@ -127,7 +177,7 @@ var KeyHandler = {
                        }
                        var counter = 0;
                        while (viewModel.textAreaStr() != viewModel.$text_field.val()) {
-                             viewModel.asyncFlag = false; // should be true
+                             viewModel.asyncFlag = true; // should be true
                              viewModel.token(viewModel.token().slice(0, viewModel.token().length-1));
                              var charBeingRemoved = viewModel.textAreaStr().slice(viewModel.textAreaStr().length-1, viewModel.textAreaStr().length);
                              viewModel.textAreaStr(viewModel.textAreaStr().slice(0, viewModel.textAreaStr().length-1));
@@ -191,12 +241,12 @@ var KeyHandler = {
                         viewModel.token('');
                         break;
                   case '.':
-                        KeyHandler.punctuation(keyVal);
-                        viewModel.token(viewModel.token()+keyVal);
+                        KeyHandler.punctuation('');
+                        viewModel.token('.');
                         break;
                   case '?':
-                        KeyHandler.punctuation(keyVal);
-                        viewModel.token(viewModel.token()+keyVal);
+                        KeyHandler.punctuation('');
+                        viewModel.token('?');
                         break;
                   case String.fromCharCode(13):  // Enter
                         KeyHandler.enterKey();
