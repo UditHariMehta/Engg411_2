@@ -1,3 +1,9 @@
+
+
+
+
+
+
 <html>
   <head>
     <link href="https://cdn.quilljs.com/1.3.4/quill.snow.css" rel="stylesheet">
@@ -10,6 +16,7 @@
       <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css">
 
       <link rel="stylesheet" href="../superfish-master/dist/css/superfish.css" media="screen">
+
 
     <!--Superfish menu files ------------------>
     <script src="../superfish-master/dist/js/hoverIntent.js"></script>
@@ -27,7 +34,7 @@
   <body>
 
 
-     <div id="editor"  data-bind="event: {click: init, keypress: keyHandler, keyup: backSpaceHandler }" data-bind="text:textAreaStr"></div>
+     <div id="editor"  data-bind="event: {click: init, keypress: keyHandler, keyup: backSpaceHandler }"></div>
       <div>
         <button id ="submit" onclick="logHtmlContent()"  data-bind="event: {click: submitButton}">Submit</button>
 
@@ -38,11 +45,11 @@
                                         <button onclick="saveButton()">Save</button>
 
                                         <!-- LOAD SUBMENU -->
-                                        <button  class="dropdown dropdown-submenu">
+                                        <button id="loadMe" class="dropdown dropdown-submenu">
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" data-bind="event:{click: loadFileNames}" style=" padding-right:90px;" >Load</a>
                                               <ul class="dropdown-menu" data-bind="foreach: fileNames">
                                                     <li>
-                                                          <a href="javascript:void(0);" onclick="return false" data-bind="text:$data, click: $parent.loadFile"> </a>
+                                                          <a href="javascript:void(0);" onclick="return true" data-bind="text:$data, click: $parent.loadFile"> </a>
                                                     </li>
                                                     <li class="divider"></li>
                                               </ul>
@@ -51,7 +58,7 @@
 
 
                           </div>
-                        </div>
+
 <div class="container" style="width:100%; padding:0;">
       <div class="lookahead-div">
                               <ul class="sf-menu" id="example" >
@@ -109,6 +116,70 @@
                                             </div>
                                       </div>
                                 </div>
+                                <div class="panel panel-default" style="padding:5px; border:none; border-radius: 0">
+                                    <div style="padding-left: 0;" class="panel-heading" style="border: none">
+                                          <h4 class="panel-title">
+                                                <a href="javascript:void(0);" class="accordion-toggle" data-toggle="collapse"  data-target="#collapseTwo">
+                                                      <span class="glyphicon glyphicon-plus"></span>
+                                                      Generated Paraphrases
+                                                </a>
+                                          </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse">
+                                          <div class="panel-body">
+                                                <ol data-bind="foreach: textParaList">
+                                                      <li data-bind="html: $data"></li>
+                                                </ol>
+                                          </div>
+                                    </div>
+                              </div>
+                              <div class="panel panel-default" style="padding:5px; border:none; border-radius: 0">
+                                    <div style="padding-left: 0;" class="panel-heading" style="border: none">
+                                          <h4 class="panel-title">
+                                                <a href="javascript:void(0);" class="accordion-toggle" data-toggle="collapse"  data-target="#collapseThree">
+                                                      <span class="glyphicon glyphicon-plus"></span>
+                                                      Answer
+                                                </a>
+                                          </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse">
+                                          <div class="panel-body">
+                                                <pre data-bind="text: answer"></pre>
+                                          </div>
+                                    </div>
+                              </div>
+                              <div class="panel panel-default" style="padding:5px; border:none; border-radius: 0">
+                                    <div style="padding-left: 0;" class="panel-heading" style="border: none">
+                                          <h4 class="panel-title">
+                                                <a href="javascript:void(0);" class="accordion-toggle" data-toggle="collapse"  data-target="#collapseFour">
+                                                      <span class="glyphicon glyphicon-plus"></span>
+                                                      Answer Set Program
+                                                </a>
+
+                                          </h4>
+
+                                    </div>
+                                    <div id="collapseFour" class="panel-collapse collapse">
+                                          <div class="panel-body">
+                                                <pre id="asp-text" data-bind="text: asp"></pre>
+                                          </div>
+                                    </div>
+                              </div>
+                              <div class="panel panel-default" style="padding:5px; border:none; border-radius: 0">
+                                    <div style="padding-left: 0;" class="panel-heading" style="border: none">
+                                          <h4 class="panel-title">
+                                                <a href="javascript:void(0);" class="accordion-toggle" data-toggle="collapse"  data-target="#collapseFive">
+                                                      <span class="glyphicon glyphicon-plus"></span>
+                                                      Answer Sets
+                                                </a>
+                                          </h4>
+                                    </div>
+                                    <div id="collapseFive" class="panel-collapse collapse">
+                                          <div class="panel-body">
+                                                <pre data-bind="text: result"></pre>
+                                          </div>
+                                    </div>
+                              </div>
                               </div>
                             </div>
 
@@ -131,6 +202,7 @@
                                               <script type="text/javascript" src="../javascript/ClickHelper.js"></script>
                                               <!-- <script type="text/javascript" src="../javascript/web_google_speech_mic.js"></script>-->
                                               <script type="text/javascript" src="../javascript/KeyEventHelper.js"></script>
+                                              <script src="https://cdn.quilljs.com/1.3.4/quill.js"></script>
                                               <script type="text/javascript" src="../javascript/ViewModel.js"></script>
 
   </body>
@@ -168,10 +240,9 @@
                   },
                 });
 
-$( "#editor" ).empty();
+
 
 });
-
 
 
 
