@@ -33,14 +33,32 @@ var SuccessHelper = {
                   var x = i;
                   if(nodes[i] != "")
                         viewModel.postToken(nodes[i]);
+                        //viewModel.$editor.val(nodes[i]);
+                    //  quill.insertText(nodes[i]);
+
+
 
                   i = x;
                   if (nodes[i] == "." || nodes[i] == "?") {
                         sentence = sentence.slice(0, sentence.length - 1);
                         sentence += nodes[i];
-                        textLineData.addSentence(sentence);
-                        viewModel.textList.push(sentence);
-                        //viewModel.textAreaStr(sentence);
+
+                          textLineData.addSentence(sentence);
+                          viewModel.textList.push(sentence);
+  					            	viewModel.textAreaStr(sentence);
+                          quill.setContents({
+    "ops":[
+        {"insert":sentence}
+    ]
+});
+                          //viewModel.$editor.val(sentence);
+                          //  quill.setText(sentence);
+                              //quill.insertText("Hello");
+                              //viewModel.$text_field.val()=viewModel.textList;
+
+
+
+
 
                         if(i != nodes.length-1)
                               viewModel.postToken(" ");
@@ -54,7 +72,7 @@ var SuccessHelper = {
             }
             var s2 = performance.now();
             console.log(s2-s1);
-            viewModel.$loader.css("visibility","hidden");
+            viewModel.$loader.css("visibility","visible");
 
       },
 
