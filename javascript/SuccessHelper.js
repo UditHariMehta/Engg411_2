@@ -46,18 +46,20 @@ var SuccessHelper = {
                           textLineData.addSentence(sentence);
                           viewModel.textList.push(sentence);
   					            	viewModel.textAreaStr(sentence);
+                          $("#editor").val(sentence);
                           quill.setContents({
-    "ops":[
-        {"insert":sentence}
-    ]
-});
+                            "ops":[
+                              {"insert":sentence}
+                            ]
+                          });
                           //viewModel.$editor.val(sentence);
                           //  quill.setText(sentence);
                               //quill.insertText("Hello");
                               //viewModel.$text_field.val()=viewModel.textList;
 
 
-
+                         console.log(sentence);
+                         
 
 
                         if(i != nodes.length-1)
@@ -72,6 +74,7 @@ var SuccessHelper = {
             }
             var s2 = performance.now();
             console.log(s2-s1);
+
             viewModel.$loader.css("visibility","visible");
 
       },
