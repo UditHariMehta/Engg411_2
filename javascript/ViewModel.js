@@ -1,11 +1,12 @@
 /**
 *   Author: Rudz Evan Bernardez, Macquarie University
 *   File Name: ViewModel.js
-*
+*   Modified by: Udit Hari Mehta, Macquarie University
 */
 
 var viewModel = {
-      $text_field: $("#editor"),
+      $text_field: $("#text_field"),
+      //$editor: $("#editor"),
       textAreaStr: ko.observable(""), // For dispaly
       result: ko.observable(""),
       firstIndexOfCurrentWord: 0,
@@ -30,7 +31,7 @@ var viewModel = {
 
       reasonerMode: "normal", // default settings
       inputMode: ko.observable("Text Mode"), //default settings
-      speechData: ko.observable(""),
+
 
       $loader: $(".loader"),
 
@@ -44,13 +45,23 @@ var viewModel = {
 
       changeToTextMode: function() {
             $("#start_button").hide();
-            $("#speech-detected").hide();
+
             this.inputMode("Text Mode");
             $('.searchbox-div').css('height', "220px");
       },
 
 
+      changeToNormal: function() {
+                  this.reasonerMode = "normal"
+            },
 
+            changeToBrave: function() {
+                  this.reasonerMode = "brave";
+            },
+
+            changeToCautious: function() {
+                  this.reasonerMode = "cautious";
+            },
 
 
       loadLookahead: function() {
@@ -226,16 +237,24 @@ var viewModel = {
 
       init: function() {
             var lastNodePostedWasBlank = textLineData.nodes[textLineData.nodes.length-1] != " ";
-            var textAreaEmpty = this.textAreaStr().length == 0
-            if (textAreaEmpty && lastNodePostedWasBlank) {
+
+            if  (lastNodePostedWasBlank) {
                   this.postToken(" ");
                   this.initSentenceLookUp = this.lookUpTable();
                   this.initLookUpObj = this.lookaheadObject();
             }
-            else if (this.allowInput){
-                  this.$text_field.val(this.textAreaStr());
+            else if ($("#editor").val('.')){
+
+              this.initSentenceLookUp = this.lookUpTable();
+              this.initLookUpObj = this.lookaheadObject();
+
             }
       },
+
+
+
+
+      
 
       populateLookUpTable: function(data) {
             this.lookahead.setAll(data);
@@ -347,43 +366,7 @@ var viewModel = {
 
       },
 
-      postSpeechToken: function(words) {
 
-            var newWords = words.replace(",", " ");
-            newWords = newWords.replace(".", " .");
-            newWords = newWords.split(" ");
-
-            var currentWords = "";
-            for (var t = 0; t < newWords.length; t++) {
-                  // FORMAT TO USER STRING I.E READABLE
-                  var len = currentWords.length;
-
-                  if (newWords[t] == ",") {
-                        currentWords = currentWords.slice(0, len-1)+newWords[t]+" ";
-                  }
-                  else if (newWords[t] == "." || newWords[t] == "?") {
-                        currentWords = currentWords.slice(0, len-1)+newWords[t];
-
-                  }
-                  else {
-                        currentWords += (newWords[t] + " ");
-                  }
-                  this.textAreaStr(currentWords);
-                  this.$text_field.val(currentWords);
-                  this.postToken(newWords[t]);
-
-                  if (!this.allowInput) {
-                        this.textAreaStr(currentWords.slice(0, len-1));
-                        break;
-                  }
-                  else {
-                        this.token(newWords[t]);
-                  }
-            // SPEECH DATA CLEAR
-            }
-            this.speechData("");
-            this.token("");
-      },
 
 contains: function(target, arr) {
       for (i = 0; i < arr.length; i++) {
