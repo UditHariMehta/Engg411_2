@@ -6,18 +6,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-        
 var KeyHandler = {
       keyUpdate: function(d, e) {
             var keyID = e.keyCode == 13 ? e.keyCode : e.charCode;
@@ -56,19 +44,20 @@ var KeyHandler = {
             //var isEndOfSentence = viewModel.textAreaStr().charAt(viewModel.textAreaStr().length === " ");
            var isEndOfSentence = viewModel.textAreaStr().charAt(viewModel.textAreaStr().length-1) == "." || viewModel.textAreaStr().charAt(viewModel.textAreaStr().length-1) == "?" ;
 
+             if(isEndOfSentence)
+             {
 
-            if(isEndOfSentence) {
                   var submitStr = viewModel.textAreaStr();
                   //.replace(" .", ".");
                   //submitStr = submitStr.replace(" ?", "?");
                   textLineData.addSentence(submitStr);
                   viewModel.textList.push(submitStr);
-                  viewModel.textAreaStr('');
+                  //viewModel.textAreaStr('');
                   viewModel.token('');
-                  viewModel.$text_field.val('');
+                  //viewModel.$text_field.val('');
                   viewModel.init();
+                }
 
-          }
       },
 
 
@@ -78,12 +67,12 @@ var KeyHandler = {
 
 
 
- fullStop: function(){
+      fullStop: function(){
 
-var isEndOfSentence = viewModel.textAreaStr().charAt(viewModel.textAreaStr().length-1) == "." ;
+        var isEndOfSentence = viewModel.textAreaStr().charAt(viewModel.textAreaStr().length-1) == "." ;
 
-if(isEndOfSentence){
 
+        if(isEndOfSentence){
   var submitStr = viewModel.textAreaStr();
   //.replace(" .", ".");
   //submitStr = submitStr.replace(" ?", "?");
@@ -134,7 +123,7 @@ questionMark: function(){
 
            var isEndOfSentence = viewModel.textAreaStr().charAt(viewModel.textAreaStr().length-1) == "." || viewModel.textAreaStr().charAt(viewModel.textAreaStr().length-1) == "?" ;
            if(isEndOfSentence){
-             var submitStr = viewModel.textAreaStr();
+            // var submitStr = viewModel.textAreaStr();
              //.replace(" .", ".");
              //submitStr = submitStr.replace(" ?", "?");
              textLineData.addSentence(submitStr);
@@ -194,6 +183,7 @@ questionMark: function(){
                         viewModel.allowInput = true;
                   }
             }
+
 
 
 
@@ -267,15 +257,16 @@ questionMark: function(){
       backspace: function(d, e) {
                  var keyVal = e.keyCode;
 
-
+                 var len = $("#editor").length;
 
                  if (keyVal == 8) { //backspace detected
-                       if (viewModel.textAreaStr().length < viewModel.$text_field.val().length) {
+
+                       if (viewModel.textAreaStr().length < len) {
                              viewModel.textAreaStr(viewModel.$text_field.val()+" ");
 
                        }
                        var counter = 0;
-                       while (viewModel.textAreaStr() != viewModel.$text_field.val()) {
+                       while (viewModel.textAreaStr() != len) {
                              viewModel.asyncFlag = true; // should be true
                              viewModel.token(viewModel.token().slice(0, viewModel.token().length-1));
                              var charBeingRemoved = viewModel.textAreaStr().slice(viewModel.textAreaStr().length-1, viewModel.textAreaStr().length);
@@ -339,12 +330,13 @@ questionMark: function(){
                         KeyHandler.punctuation('');
                         viewModel.token('');
                         break;
-                  case '.':
-                        KeyHandler.punctuation('');
-                      
-                        viewModel.token(".");
 
+                  case '.':
+
+                    KeyHandler.punctuation('');
+                    viewModel.token(".");
                         break;
+
                   case '?':
                         KeyHandler.punctuation(keyVal);
                         viewModel.token(viewModel.token()+keyVal);
@@ -360,3 +352,16 @@ questionMark: function(){
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+        
