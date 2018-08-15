@@ -7,7 +7,7 @@
 var viewModel = {
       $text_field: $("#text_field"),
       //$editor: $("#editor"),
-      textAreaStr: ko.observable(""), // For dispaly
+      textAreaStr: ko.observableArray([]), // For dispaly
       result: ko.observable(""),
       firstIndexOfCurrentWord: 0,
 
