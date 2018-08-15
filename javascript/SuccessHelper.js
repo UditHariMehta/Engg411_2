@@ -38,6 +38,7 @@ var SuccessHelper = {
 
 
 
+
                   i = x;
                   if (nodes[i] == "." || nodes[i] == "?") {
                         sentence = sentence.slice(0, sentence.length - 1);
@@ -45,21 +46,47 @@ var SuccessHelper = {
 
                           textLineData.addSentence(sentence);
                           viewModel.textList.push(sentence);
-  					            	viewModel.textAreaStr(sentence);
-                          $("#editor").val(sentence);
-                          quill.setContents({
+                          //viewModel.textAreaStr.push(sentence);
+                          var Delta = Quill.import('delta');
+                          var longString = new Array(nodes.length).fill('').join((sentence));
+                          var contents = new Delta().insert(longString);
+
+
+                          var startTime = new Date();
+                          quill.setContents(contents);
+                          console.log('Time is ::: ', new Date() - startTime);
+                          console.log(quill.getLength());
+
+
+                          /*quill.setContents({
                             "ops":[
-                              {"insert":sentence}
+                              {"insert":(sentence)}
                             ]
-                          });
+                          });*/
+
                           //viewModel.$editor.val(sentence);
                           //  quill.setText(sentence);
                               //quill.insertText("Hello");
                               //viewModel.$text_field.val()=viewModel.textList;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                          console.log(sentence);
-                         
+
 
 
                         if(i != nodes.length-1)
