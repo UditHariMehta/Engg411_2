@@ -44,16 +44,19 @@ var SuccessHelper = {
                         sentence = sentence.slice(0, sentence.length - 1);
                         sentence += nodes[i];
 
+
                           textLineData.addSentence(sentence);
+
                           viewModel.textList.push(sentence);
                           //viewModel.textAreaStr.push(sentence);
                           var Delta = Quill.import('delta');
-                          var longString = new Array(nodes.length).fill('').join((sentence));
+                          var longString = new Array(2).fill('').join((sentence));
                           var contents = new Delta().insert(longString);
-
-
                           var startTime = new Date();
-                          quill.setContents(contents);
+
+
+                          quill.updateContents(contents);
+
                           console.log('Time is ::: ', new Date() - startTime);
                           console.log(quill.getLength());
 
@@ -85,8 +88,8 @@ var SuccessHelper = {
 
 
 
-                         console.log(sentence);
-
+                    console.log(quill.getText());
+                        //console.log(b);
 
 
                         if(i != nodes.length-1)
@@ -97,8 +100,10 @@ var SuccessHelper = {
                   else {
                         sentence+=nodes[i]+" ";
                   }
+
                   i = x;
             }
+
             var s2 = performance.now();
             console.log(s2-s1);
 
